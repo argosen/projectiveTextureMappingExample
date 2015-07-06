@@ -1,0 +1,1 @@
+Implementation of projective texture mapping example using basic opengl funcions. The original code was found in "ftp://ftp.sgi.com/sgi/opengl/contrib/mjk/tips/projtex/index.html".
