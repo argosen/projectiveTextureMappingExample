@@ -578,6 +578,7 @@ display(void)
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   if (textureEnabled) {
+      // Update projection horientation
     if (mode == MoveTexture || mode == MoveView) {
       /* Have OpenGL compute the new transformation (simple but slow). */
       glPushMatrix();
@@ -587,8 +588,10 @@ display(void)
       glGetFloatv(GL_MODELVIEW_MATRIX, (GLfloat *) textureXform);
       glPopMatrix();
     }
+    // Align the projection with the frustum configuration (position and orientation)
     loadTextureProjection((GLfloat *) textureXform);
 
+    // Draw the yellow frustum representation
     if (showProjection) {
       glPushMatrix();
       glMultMatrixf((GLfloat *) textureXform);
@@ -598,11 +601,14 @@ display(void)
       glPopMatrix();
     }
     glEnable(GL_TEXTURE_2D);
+    // Render the projected textures
     glEnable(GL_TEXTURE_GEN_S);
     glEnable(GL_TEXTURE_GEN_T);
     glEnable(GL_TEXTURE_GEN_R);
     glEnable(GL_TEXTURE_GEN_Q);
   }
+
+  // Move model if necesary
   if (mode == MoveObject || mode == MoveView) {
     /* Have OpenGL compute the new transformation (simple but slow). */
     glPushMatrix();
